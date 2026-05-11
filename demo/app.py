@@ -113,7 +113,7 @@ CSS = """
 
 
 def build_ui(checkpoint_loaded: bool):
-    with gr.Blocks(title="Pneumonia Classifier", css=CSS, theme=gr.themes.Soft()) as app:
+    with gr.Blocks(title="Pneumonia Classifier") as app:
         gr.Markdown(
             """
             # 🫁 Pneumonia Detection from Chest X-Rays
@@ -153,7 +153,7 @@ def build_ui(checkpoint_loaded: bool):
                     gr.Examples(samples, inputs=inp, label="Or try a sample image (from test set)")
 
             with gr.Column(scale=1):
-                out_label = gr.Textbox(label="Diagnosis", lines=2, show_copy_button=True)
+                out_label = gr.Textbox(label="Diagnosis", lines=2)
                 out_probs = gr.Label(label="Probability Distribution", num_top_classes=2)
                 out_cam = gr.Image(label="Grad-CAM (model attention)", height=400)
 
@@ -225,7 +225,10 @@ def main():
         print(f"⚠️ Checkpoint not found at {ckpt_path} — UI will show placeholder")
 
     app = build_ui(checkpoint_loaded=loaded)
-    app.queue(max_size=10).launch(server_name=args.host, server_port=args.port, share=False)
+    app.queue(max_size=10).launch(
+        server_name=args.host, server_port=args.port, share=False,
+        css=CSS, theme=gr.themes.Soft(),
+    )
 
 
 if __name__ == "__main__":
