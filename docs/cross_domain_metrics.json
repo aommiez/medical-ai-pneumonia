@@ -1,0 +1,8 @@
+{
+  "pediatric_on_kaggle_in_domain": 0.9137628753013369,
+  "pediatric_on_nih_ood": 0.6303329864724245,
+  "nih_on_nih_in_domain": 0.921436004162331,
+  "nih_on_kaggle_ood": 0.6704909051062897,
+  "ped_to_adult_drop": 0.2834298888289124,
+  "adult_to_ped_drop": 0.25094509905604123
+}

@@ -220,16 +220,53 @@ medical-ai-pneumonia/
 
 ---
 
+## 🌐 Multi-label Extension — NIH ChestX-ray14
+
+Beyond the binary pediatric model, we also trained a multi-label classifier on NIH's adult chest X-ray dataset for all 14 disease classes.
+
+**Test mean AUROC: 0.7634** (5 epochs, sample subset ~6k images, Modal A10G GPU)
+
+| Disease | AUROC | | Disease | AUROC |
+|---------|-------|--|---------|-------|
+| Hernia | 0.9635 | | Atelectasis | 0.7526 |
+| Edema | 0.9271 | | Emphysema | 0.7108 |
+| Consolidation | 0.8557 | | Fibrosis | 0.7121 |
+| Effusion | 0.8115 | | Mass | 0.7052 |
+| Pneumothorax | 0.8024 | | Infiltration | 0.6979 |
+| Cardiomegaly | 0.7974 | | Nodule | 0.6142 |
+| Pleural_Thickening | 0.7936 | | **Pneumonia** | **0.5445** |
+
+Pneumonia is surprisingly hard on NIH (AUROC 0.54 ≈ random) — labels are noisy (NLP-mined from radiology reports) and easily confused with Consolidation/Infiltration.
+
+## 🔄 Cross-Domain Generalization
+
+We tested how models trained on one dataset perform on the other (pediatric ↔ adult).
+
+| Model | Test set | AUROC | Drop from in-domain |
+|-------|----------|-------|---------------------|
+| Pediatric (Kaggle) | Kaggle test (in-domain) | **0.9138** | — |
+| Pediatric (Kaggle) | NIH adults (OOD) | 0.6303 | **−0.2834** |
+| NIH adults | NIH test (in-domain) | **0.9214** | — |
+| NIH adults | Kaggle pediatric (OOD) | 0.6705 | **−0.2509** |
+
+![Cross-Domain ROC](docs/cross_domain_roc.png)
+
+**Finding:** Both models lose ~25-28% AUROC when applied to the other domain. This is a classic demonstration of **domain shift** in medical imaging — models trained on one institution/population do not generalize without further work (domain adaptation, fine-tuning, or external validation studies).
+
 ## 🛣️ Roadmap / Stretch Goals
 
 - [x] Baseline DenseNet121 trained — AUROC 0.91
 - [x] Live demo deployed via Cloudflare Tunnel
 - [x] Grad-CAM visualization
-- [ ] Train on full NIH ChestX-ray14 (112k images, 14 diseases)
+- [x] Calibration analysis with operating-point recommendations
+- [x] Blog post writeup (BLOG_POST.md)
+- [x] Hugging Face Space deployment (public)
+- [x] Multi-label extension on NIH CXR14 (14 diseases, mean AUROC 0.76)
+- [x] Cross-domain pediatric ↔ adult analysis (showed 25-28% AUROC drop)
+- [ ] Train on full NIH ChestX-ray14 (112k images, all 14 diseases)
 - [ ] Add lung segmentation (U-Net for ROI localization)
-- [ ] Calibration plot + temperature scaling
+- [ ] Domain adaptation (DANN, MMD) to bridge pediatric ↔ adult gap
 - [ ] External validation on PadChest / MIMIC-CXR
-- [ ] Compare against CheXNet baseline (AUROC 0.768)
 - [ ] Bayesian uncertainty via MC Dropout
 - [ ] Mobile-friendly demo (ONNX export)
 - [ ] Multi-class extension (Bacterial vs Viral pneumonia)

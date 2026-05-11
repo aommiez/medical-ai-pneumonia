@@ -1,0 +1,20 @@
+{
+  "test_mean_auroc": 0.7634481079428633,
+  "test_per_class": {
+    "Atelectasis": 0.7525957246887478,
+    "Cardiomegaly": 0.7973700887198986,
+    "Effusion": 0.8114626556016598,
+    "Infiltration": 0.6978773160640402,
+    "Mass": 0.7051690264887203,
+    "Nodule": 0.6141649048625792,
+    "Pneumonia": 0.5444652908067542,
+    "Pneumothorax": 0.8024171539961014,
+    "Consolidation": 0.8556776556776556,
+    "Edema": 0.9271161520688931,
+    "Emphysema": 0.7107692307692307,
+    "Fibrosis": 0.7120786516853932,
+    "Pleural_Thickening": 0.7936265137029955,
+    "Hernia": 0.9634831460674158
+  },
+  "subset": "sample"
+}
