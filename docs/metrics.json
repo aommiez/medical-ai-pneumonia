@@ -1,0 +1,19 @@
+{
+  "test_auroc": 0.9137628753013369,
+  "test_auprc": 0.9185804144484905,
+  "test_f1": 0.8858447488584474,
+  "sensitivity_at_95_specificity": 0.40512820512820513,
+  "confusion_matrix": [
+    [
+      136,
+      98
+    ],
+    [
+      2,
+      388
+    ]
+  ],
+  "test_size": 624,
+  "test_positives": 390,
+  "test_negatives": 234
+}
