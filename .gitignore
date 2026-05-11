@@ -1,0 +1,32 @@
+# Data (too large for git)
+data/raw/
+data/processed/
+data/*.tar.gz
+data/*.zip
+
+# Model checkpoints
+checkpoints/
+*.pt
+*.pth
+*.onnx
+
+# Logs
+logs/
+wandb/
+runs/
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Local config
+.env
+.env.local
